@@ -1,40 +1,53 @@
-const input = document.querySelector(".js-search-box");
-const searchButton = document.querySelector(".js-search-button");
+const input = document.querySelector(".js-search");
+const list = document.querySelector(".list");
+const form = document.querySelector(".js-form");
 
-const button = document.querySelector(".js-search-button");
-button.addEventListener("click", getDataSeries);
+let arraySeries = [];
 
-function getDataSeries(ev) {
-    ev.preventDefault();
-
-const inputValue = document.querySelector(".js-search-box").value;
-console.log(inputValue);
-
-function getDataSeries() {
-  const input = document.querySelector(".js-search-box").value;
+function getList() {
   const inputValue = input.value;
-  
-
   fetch(`http://api.tvmaze.com/search/shows?q=${inputValue}`)
     .then((response) => response.json())
     .then((data) => {
-      const container = document.querySelector(".js-container");
-      container.innerHTML = data.name;
-    })
-    .catch((err) => {
-      console.error("Se ha producido un error:", err);
+      arraySeries = new Array(data.length);
+      for (let i = 0; i < data.length; i++) {
+        arraySeries[i] = new Array(3);
+        arraySeries[i][0] = new Array(2);
+      }
+      for (let i = 0; i < data.length; i++) {
+        arraySeries[i][0] = data[i].show.image;
+        console.log(arraySeries[i][0].medium);
+        arraySeries[i][1] = data[i].show.name;
+        arraySeries[i][2] = data[i].show.id;
+      }
+      paintList(arraySeries);
     });
 }
-
-function generarHtml() {
-  console.log();
-  for (let i = 0; i < arr.length; i++) {
-    let valueArray = arr[i];
-    console.log(valueArray);
-    const ul = document.querySelector("#ul");
-    ul.innerHTML += "<li>" + arr[i] + "</li>";
+function paintList(arraySeries) {
+  let seriesList = "";
+  console.log(arraySeries[5][0].medium);
+  for (let i = 0; i < arraySeries.length; i++) {
+    const image = arraySeries[i][0];
+    const titleSeries = arraySeries[i][1];
+    const identifier = arraySeries[i][2];
+    const placeHolderRef =
+      "https://via.placeholder.com/100x150/ffffff/666666/?text=TV";
+    if (image === null) {
+      seriesList = `<li id=${identifier}><div class="card"><img class="image" src="${placeHolderRef}" alt="series poster placeholder">${titleSeries}</div></li>`;
+    } else {
+      seriesList = `<li id=${identifier}><div class="card"><img class="image" src="${image.medium}" alt="series poster">${titleSeries}</div></li>`;
+    }
+    list.innerHTML += seriesList;
   }
 }
 
-const button = document.querySelector(".js-search-button");
-button.addEventListener("click", getDataSeries);
+function handleSubmit(event) {
+  event.preventDefault();
+}
+
+function handleKeySearch(event) {
+  event.preventDefault();
+  getList();
+}
+form.addEventListener("submit", handleSubmit);
+input.addEventListener("keyup", handleKeySearch);
