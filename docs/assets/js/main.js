@@ -1,1 +1,1 @@
-"use strict";console.log(">> Ready :)");
+const input=document.querySelector(".js-search-box"),searchButton=document.querySelector(".js-search-button");function getDataSeries(){const e=document.querySelector(".js-search-box").value;fetch("http://api.tvmaze.com/search/shows?q="+e).then(e=>e.json()).then(e=>{document.querySelector(".js-container").innerHTML=e.name})}const button=document.querySelector(".js-search-button");button.addEventListener("click",getDataSeries);
