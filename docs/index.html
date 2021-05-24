@@ -2,17 +2,26 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Mi primer código JavaScript</title>
+    <title>Series Search</title>
+    <link rel="stylesheet" href="./assets/css/main.css" />
   </head>
   <body>
-    <body>
-      <h2>Buscador de Series</h2>
-      <input type="text" class="js-search-box">
-      <input type="button" class="js-search-button">
-      <div class="js-container"></div>
-      <h3>Mis series favoritos</h3>
-      <ul class="js-favorites"></ul>
+    <body class="body">
+      <h2>Series Search</h2>
+      <div>
+        <form action="#" class="form js-form">
+          <input class="js-search" type="text" name="search" id="search" placeholder="What would you like to watch today?">
+        </form>
+      </div>
+      <div class="container">
+        <div>
+          <h3>My favorite series</h3>
+          <ul class="js-favorites" id=#ul></ul>
+        </div>
+        <div class="js-container">
+          <ul class="list js-list"></ul>
+        </div>
+      </div>
       <script src="./assets/js/main.js"></script>
-      <script src="./assets/js/02-fetch.js"></script>
     </body>
 </html>
