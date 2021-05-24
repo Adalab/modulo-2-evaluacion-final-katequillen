@@ -1,15 +1,17 @@
 let globalData = [];
 let favorites = [];
 
+const isPresent = favorites.find((favoriteID) => favoriteID === selectedId);
+
 function itemListener() {
-  const allItems = document.querySelectorAll(".favorite");
-  for (const item of allItems) {
-    item.addEventListener("click", handleClickItem);
+  const cards = document.querySelectorAll(".js-card");
+  for (const card of cards) {
+    cards.addEventListener("click", handleClickItem);
   }
 }
 
 function handleClickItem(event) {
-  const whereTheUserClicked = event.target; //no hace falta
+  //const whereTheUserClicked = event.target; //no hace falta
 
   //identifica la li pulsada
   const whereIAddedTheEvent = event.currentTarget;
@@ -22,8 +24,6 @@ function handleClickItem(event) {
 
   //Buscar si la paleta clickeada esta en favoritos
 
-  const isPresent = favorites.find((favoriteID) => favoriteID === selectedId);
-
   if (isPresent === undefined) {
     //el id en lo que he hecho click no esta en el array de favoritos
     favorites.push(selectedId);
@@ -31,37 +31,15 @@ function handleClickItem(event) {
     favorites = favorites.filter((favoriteID) => favoriteID !== selectedId);
   }
 
-  function itemListener() {
-    const allCards = document.querySelectorAll(".js-card");
-    for (const card of allCards) {
-      card.addEventListener("click", handleClickCard);
-    }
-  }
-
-  function handleClickCard(event) {
-    const whereTheUserClicked = event.target; // No hace falta
-
-    // Identificar la li pulsada
-    const whereIAddedTheEvent = event.currentTarget;
-
-    // Obtener la información asociada a la paleta
-    const seriesEventId = whereIAddedTheEvent.dataset.id;
-
-    // Buscar si la paleta clickada está en favoritos
-    const isPresent = favorites.find(
-      (favoriteId) => favoriteId === seriesEventId
-    );
-
-    if (isPresent === undefined) {
-      // El ID de la paleta en la que ha hecho click no está en el array de favoritos
-      favorites.push(seriesEventId);
-    } else {
-      favorites = favorites.filter(
-        (favoriteId) => favoriteId !== seriesEventId
-      );
-    }
-
-    // Re-pintamos las tarjetas de paletas teniéndo en cuenta el filtro.
-    renderFilteredSeries();
-  }
+  // Re-pintamos las tarjetas de paletas teniéndo en cuenta el filtro.
+  renderFilteredSeries();
 }
+
+function handleCardClick(ev) {
+  const selectedCard = ev.currentTarget;
+
+  selectedCard.classList.add(".clicked");
+}
+
+const cardClicked = document.querySelector(".card");
+cardClicked.addEventListener("click", handleCardClick);

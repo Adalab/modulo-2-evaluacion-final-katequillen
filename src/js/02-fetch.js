@@ -11,10 +11,10 @@ function getList() {
     .then((data) => {
       arraySeries = new Array(data.length);
       for (let i = 0; i < data.length; i++) {
-        arraySeries[i] = new Array(3);
-        arraySeries[i][0] = new Array(2);
-      }
-      for (let i = 0; i < data.length; i++) {
+        arraySeries[i] = new Array(i);
+        //arraySeries[i][0] = new Array(2);
+        // }
+        // for (let i = 0; i < data.length; i++) {
         arraySeries[i][0] = data[i].show.image;
         arraySeries[i][1] = data[i].show.name;
         arraySeries[i][2] = data[i].show.id;
@@ -32,12 +32,20 @@ function generateList(arraySeries) {
     const placeHolderRef =
       "https://via.placeholder.com/100x150/ffffff/666666/?text=TV";
 
-    //si la que esta pintando esta en
-    const isPresent = favorites.find((favoriteID) => favoriteID === selectedId);
     if (image === null) {
-      seriesList = `<li data-id=${seriesId}><div class="card"><img class="image" src="${placeHolderRef}" alt="series poster placeholder">${titleSeries}</div></li>`;
+      seriesList = `<li data-id=${seriesId}>
+        <div class="card favorite">
+            <img class="image" src="${placeHolderRef}" alt="series poster placeholder">
+                ${titleSeries}
+        </div>
+      </li>`;
     } else {
-      seriesList = `<li data-id=${seriesId}><div class="card"><img class="image" src="${image.medium}" alt="series poster">${titleSeries}</div></li>`;
+      seriesList = `<li data-id=${seriesId}>
+         <div class="card favorite">
+            <img class="image" src="${image.medium}" alt="series poster">
+                ${titleSeries}
+        </div>
+      </li>`;
     }
     list.innerHTML += seriesList;
   }
