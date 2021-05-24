@@ -2,7 +2,7 @@ let globalData = [];
 let favorites = [];
 
 function itemListener() {
-  const allItems = document.querySelectorAll(".js-item");
+  const allItems = document.querySelectorAll(".favorite");
   for (const item of allItems) {
     item.addEventListener("click", handleClickItem);
   }

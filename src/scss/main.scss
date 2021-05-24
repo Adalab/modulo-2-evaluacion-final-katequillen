@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.body {
+  background-color: aquamarine;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 360px;
+  width: 250px;
+  padding-top: 20px;
+  background-color: cadetblue;
+  margin: 10px;
+  align-items: center;
+  font-size: 30px;
+}

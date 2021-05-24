@@ -1,12 +1,12 @@
 const input = document.querySelector(".js-search");
-const list = document.querySelector(".list");
+const list = document.querySelector(".js-list");
 const form = document.querySelector(".js-form");
 
 let arraySeries = [];
 
 function getList() {
   const inputValue = input.value;
-  fetch(`http://api.tvmaze.com/search/shows?q=${inputValue}`)
+  fetch(`//api.tvmaze.com/search/shows?q=${inputValue}`)
     .then((response) => response.json())
     .then((data) => {
       arraySeries = new Array(data.length);
@@ -16,7 +16,6 @@ function getList() {
       }
       for (let i = 0; i < data.length; i++) {
         arraySeries[i][0] = data[i].show.image;
-        console.log(arraySeries[i][0].medium);
         arraySeries[i][1] = data[i].show.name;
         arraySeries[i][2] = data[i].show.id;
       }
@@ -39,13 +38,6 @@ function generateList(arraySeries) {
       seriesList = `<li data-id=${seriesId}><div class="card"><img class="image" src="${placeHolderRef}" alt="series poster placeholder">${titleSeries}</div></li>`;
     } else {
       seriesList = `<li data-id=${seriesId}><div class="card"><img class="image" src="${image.medium}" alt="series poster">${titleSeries}</div></li>`;
-    }
-    list.innerHTML += seriesList;
-
-    if (image === null) {
-      seriesList = `<li data-id=${seriesId} class="js-item favorite"><div class="card"><img class="image" src="${placeHolderRef}" alt="series poster placeholder">${titleSeries}</div></li>`;
-    } else {
-      seriesList = `<li data-id=${seriesId} class="js-item favorite"><div class="card"><img class="image" src="${image.medium}" alt="series poster">${titleSeries}</div></li>`;
     }
     list.innerHTML += seriesList;
   }
