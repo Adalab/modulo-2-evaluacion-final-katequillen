@@ -20,22 +20,32 @@ function getList() {
         arraySeries[i][1] = data[i].show.name;
         arraySeries[i][2] = data[i].show.id;
       }
-      paintList(arraySeries);
+      generateList(arraySeries);
     });
 }
-function paintList(arraySeries) {
+function generateList(arraySeries) {
   let seriesList = "";
-  console.log(arraySeries[5][0].medium);
+
   for (let i = 0; i < arraySeries.length; i++) {
     const image = arraySeries[i][0];
     const titleSeries = arraySeries[i][1];
-    const identifier = arraySeries[i][2];
+    const seriesId = arraySeries[i][2];
     const placeHolderRef =
       "https://via.placeholder.com/100x150/ffffff/666666/?text=TV";
+
+    //si la que esta pintando esta en
+    const isPresent = favorites.find((favoriteID) => favoriteID === selectedId);
     if (image === null) {
-      seriesList = `<li id=${identifier}><div class="card"><img class="image" src="${placeHolderRef}" alt="series poster placeholder">${titleSeries}</div></li>`;
+      seriesList = `<li data-id=${seriesId}><div class="card"><img class="image" src="${placeHolderRef}" alt="series poster placeholder">${titleSeries}</div></li>`;
     } else {
-      seriesList = `<li id=${identifier}><div class="card"><img class="image" src="${image.medium}" alt="series poster">${titleSeries}</div></li>`;
+      seriesList = `<li data-id=${seriesId}><div class="card"><img class="image" src="${image.medium}" alt="series poster">${titleSeries}</div></li>`;
+    }
+    list.innerHTML += seriesList;
+
+    if (image === null) {
+      seriesList = `<li data-id=${seriesId} class="js-item favorite"><div class="card"><img class="image" src="${placeHolderRef}" alt="series poster placeholder">${titleSeries}</div></li>`;
+    } else {
+      seriesList = `<li data-id=${seriesId} class="js-item favorite"><div class="card"><img class="image" src="${image.medium}" alt="series poster">${titleSeries}</div></li>`;
     }
     list.innerHTML += seriesList;
   }
@@ -46,7 +56,6 @@ function handleSubmit(event) {
 }
 
 function handleKeySearch(event) {
-  event.preventDefault();
   getList();
 }
 form.addEventListener("submit", handleSubmit);
