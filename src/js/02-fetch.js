@@ -8,7 +8,7 @@ let arraySeries = [];
 
 function getList(ev) {
   //ev.preventDefault();
-
+  arraySeries = [];
   const inputValue = input.value;
   fetch(`//api.tvmaze.com/search/shows?q=${inputValue}`)
     .then((response) => response.json())
@@ -24,16 +24,12 @@ function insertHTML(series) {
   let htmlCode = "";
   for (const item of series) {
     if (item.image === null) {
-      htmlCode += `<li id="${item.id} class="card js-card">
-        <div class="favorite">
-          <img class="image" src="https://via.placeholder.com/100x150/ffffff/666666/?text=TV" alt="series poster placeholder">${item.name}
-        </div>
+      htmlCode += `<li id="${item.id} class="card favorite js-card">
+          <img class="image placeholder" src="https://via.placeholder.com/100x150/ffffff/666666/?text=TV" alt="series poster placeholder">${item.name}
       </li>`;
     } else {
-      htmlCode += `<li id="${item.id}" class="card js-card">
-        <div class="favorite">
+      htmlCode += `<li id="${item.id}" class="card favorite js-card">
           <img class="image" src="${item.image.medium}" alt="series poster">${item.name}
-        </div>
       </li>`;
     }
   }
@@ -49,5 +45,5 @@ function generateList(arraySeries) {
 function handleKeySearch(event) {
   getList();
 }
-//form.addEventListener("submit", handleSubmit);
+
 input.addEventListener("keyup", handleKeySearch);

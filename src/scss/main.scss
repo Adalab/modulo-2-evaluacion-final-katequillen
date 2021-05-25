@@ -45,3 +45,20 @@
   align-items: center;
   font-size: 30px;
 }
+
+.placeholder {
+  width: 209px;
+  height: 295 px;
+}
+
+.none {
+  display: flex;
+  flex-direction: column;
+  height: 360px;
+  width: 250px;
+  padding-top: 20px;
+  background-color: cadetblue;
+  margin: 10px;
+  align-items: center;
+  font-size: 30px;
+}
