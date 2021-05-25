@@ -27,5 +27,13 @@
 }
 
 .clicked {
-  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  height: 360px;
+  width: 250px;
+  padding-top: 20px;
+  background-color: navy;
+  margin: 10px;
+  align-items: center;
+  font-size: 30px;
 }

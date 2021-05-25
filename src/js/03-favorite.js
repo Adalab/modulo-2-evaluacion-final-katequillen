@@ -1,45 +1,49 @@
-let globalData = [];
 let favorites = [];
 
-const isPresent = favorites.find((favoriteID) => favoriteID === selectedId);
-
-function itemListener() {
-  const cards = document.querySelectorAll(".js-card");
-  for (const card of cards) {
+function cardListener() {
+  const allSeries = document.querySelectorAll(".js-card");
+  for (const cards of allSeries) {
     cards.addEventListener("click", handleClickItem);
   }
 }
+input.addEventListener("click", getList);
+cardListener();
 
-function handleClickItem(event) {
-  //const whereTheUserClicked = event.target; //no hace falta
-
-  //identifica la li pulsada
-  const whereIAddedTheEvent = event.currentTarget;
-
-  console.log(globalData);
-  console.log(whereIAddedTheEvent);
-  //obtener la informacion asociada a la paleta
-
-  const selectedId = whereIAddedTheEvent.dataset.id;
-
-  //Buscar si la paleta clickeada esta en favoritos
-
-  if (isPresent === undefined) {
-    //el id en lo que he hecho click no esta en el array de favoritos
-    favorites.push(selectedId);
+function handleClickItem(ev) {
+  const faveCard = ev.currentTarget;
+  let faveId = ev.currentTarget.id;
+  const findFave = favorites.find((favoriteID) => favoriteID === selectedId);
+  faveCard.classList.add(".clicked");
+  if (showFav === undefined) {
+    const selectedSeriesFav = arraySeries.find(
+      (element) => element.id === parseInt(faveId)
+    );
+    favorites.push(selectedSeriesFav);
+    upDateFav.classList.remove("card");
+    upDateFav.classList.add("clicked");
   } else {
-    favorites = favorites.filter((favoriteID) => favoriteID !== selectedId);
+    let selectedSeriesFav2 = favorites.indexOf(showFav);
+    favorites.splice(selectedSeriesFav2, 1);
+    upDateFav.classList.add("card");
+    upDateFav.classList.remove("clicked");
   }
 
-  // Re-pintamos las tarjetas de paletas teniéndo en cuenta el filtro.
-  renderFilteredSeries();
+  // function handleClickItem(ev) {
+  //   const faveCard = ev.currentTarget;
+  //   let faveId = ev.currentTarget.id;
+  //   const findFave = favorites.find((favoriteID) => favoriteID === selectedId);
+
+  //   faveCard.classList.add(".clicked");
+  // }
+
+  const cardClicked = document.querySelector(".card");
+  cardClicked.addEventListener("click", handleClickItem);
+
+  localStorage.setItem("series", JSON.stringify(favorites));
+  paintSeriesFav(favorites);
+  addEventListenerClose();
 }
-
-function handleCardClick(ev) {
-  const selectedCard = ev.currentTarget;
-
-  selectedCard.classList.add(".clicked");
-}
-
-const cardClicked = document.querySelector(".card");
-cardClicked.addEventListener("click", handleCardClick);
+// function paintSeriesFav(favorites) {
+//   let htmlCode = getHtmlCodeFav(favorites);
+//   seriesFav.innerHTML = htmlCode;
+// }

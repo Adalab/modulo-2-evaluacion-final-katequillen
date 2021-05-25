@@ -34,14 +34,14 @@ function generateList(arraySeries) {
 
     if (image === null) {
       seriesList = `<li data-id=${seriesId}>
-        <div class="card favorite">
+        <div class="card favorite js-card">
             <img class="image" src="${placeHolderRef}" alt="series poster placeholder">
                 ${titleSeries}
         </div>
       </li>`;
     } else {
       seriesList = `<li data-id=${seriesId}>
-         <div class="card favorite">
+         <div class="card favorite js-card">
             <img class="image" src="${image.medium}" alt="series poster">
                 ${titleSeries}
         </div>
