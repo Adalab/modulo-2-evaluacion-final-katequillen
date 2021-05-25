@@ -7,11 +7,19 @@
   background-color: aquamarine;
 }
 
+.search {
+  width: 220px;
+}
+
 .list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   list-style: none;
+}
+
+.fave_style {
+  width: 300px;
 }
 
 .card {

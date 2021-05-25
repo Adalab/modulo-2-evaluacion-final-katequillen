@@ -3,47 +3,37 @@ let favorites = [];
 function cardListener() {
   const allSeries = document.querySelectorAll(".js-card");
   for (const cards of allSeries) {
-    cards.addEventListener("click", handleClickItem);
+    cards.addEventListener("click", faveList);
   }
 }
-input.addEventListener("click", getList);
-cardListener();
 
-function handleClickItem(ev) {
+function faveList(ev) {
   const faveCard = ev.currentTarget;
   let faveId = ev.currentTarget.id;
-  const findFave = favorites.find((favoriteID) => favoriteID === selectedId);
-  faveCard.classList.add(".clicked");
-  if (showFav === undefined) {
+  const findFave = favorites.find((element) => element.id === parseInt(faveId));
+  if (findFave === undefined) {
     const selectedSeriesFav = arraySeries.find(
       (element) => element.id === parseInt(faveId)
     );
     favorites.push(selectedSeriesFav);
-    upDateFav.classList.remove("card");
-    upDateFav.classList.add("clicked");
+    faveCard.classList.remove(".card");
+    faveCard.classList.add(".clicked");
   } else {
-    let selectedSeriesFav2 = favorites.indexOf(showFav);
-    favorites.splice(selectedSeriesFav2, 1);
-    upDateFav.classList.add("card");
-    upDateFav.classList.remove("clicked");
+    let selectedSeriesFav = favorites.indexOf(findFave);
+    favorites.splice(selectedSeriesFav);
+    faveCard.classList.add(".card");
+    faveCard.classList.remove(".clicked");
   }
 
-  // function handleClickItem(ev) {
-  //   const faveCard = ev.currentTarget;
-  //   let faveId = ev.currentTarget.id;
-  //   const findFave = favorites.find((favoriteID) => favoriteID === selectedId);
-
-  //   faveCard.classList.add(".clicked");
-  // }
-
   const cardClicked = document.querySelector(".card");
-  cardClicked.addEventListener("click", handleClickItem);
+  cardClicked.addEventListener("click", faveList);
 
   localStorage.setItem("series", JSON.stringify(favorites));
   paintSeriesFav(favorites);
   addEventListenerClose();
 }
-// function paintSeriesFav(favorites) {
-//   let htmlCode = getHtmlCodeFav(favorites);
-//   seriesFav.innerHTML = htmlCode;
-// }
+function generateFaveList(favorites) {
+  const fav = document.querySelector(".js-favorites");
+  let faveContent = faveList(favorites);
+  fav.innerHTML = faveContent;
+}
