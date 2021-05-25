@@ -1,3 +1,5 @@
+"use strict";
+
 const input = document.querySelector(".js-search");
 const list = document.querySelector(".js-list");
 const form = document.querySelector(".js-form");
@@ -5,7 +7,7 @@ const form = document.querySelector(".js-form");
 let arraySeries = [];
 
 function getList() {
-  eval.preventDefault();
+  ev.preventDefault();
   
   const inputValue = input.value;
   fetch(`//api.tvmaze.com/search/shows?q=${inputValue}`)
@@ -33,10 +35,10 @@ function getList() {
 function generateList(arraySeries) {
   let htmlCode = insertHTML(arraySeries);
   list.innerHTML = htmlCode;
-  addEventListenerToCards();
+  itemListener();
 }
 
-function addEventListenerToCards() {
+function itemListener() {
   const allCards = document.querySelectorAll(".js-card");
   for (const cards of allCards) {
     cards.addEventListener("click", handleFavList);
@@ -45,20 +47,20 @@ function addEventListenerToCards() {
 
 function insertHTML(series) {
   let htmlCode = "";
-  for (const serie of series) {
-    htmlCode += `<li data-id=${seriesId}>`;
-    if (serie.image === null) {
-      htmlCode += `<div class="card favorite js-card">
-              <img class="image" src="${placeHolderRef}" alt="series poster placeholder">${titleSeries}
-              </div>`;
+  for (const item of series) {
+    if (item.image === null) {
+      htmlCode += `<li data-id=${seriesId}>
+        <div class="card favorite js-card">
+          <img class="image" src="${placeHolderRef}" alt="series poster placeholder">${titleSeries}
+        </div>
+      </li>`;
     } else {
-      htmlCode += `<div class="card favorite js-card">
-                  <img class="image" src="${image.medium}" alt="series poster">
-                      ${titleSeries}
-              </div>`;
+      htmlCode += `<li data-id=${seriesId}>
+        <div class="card favorite js-card">
+          <img class="image" src="${image.medium}" alt="series poster">${titleSeries}
+        </div>
+      </li>`;
     }
-    //htmlCode += `<h2 class="card-title">${serie.name}</h2>`;
-    htmlCode += `</li>`;
   }
   return htmlCode;
 }
@@ -92,9 +94,7 @@ function insertHTML(series) {
 //   }
 // }
 
-function handleSubmit(event) {
-  event.preventDefault();
-}
+
 
 function handleKeySearch(event) {
   getList();
