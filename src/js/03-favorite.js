@@ -1,5 +1,26 @@
 let favorites = [];
 
+function insertHTML(favorites) {
+  let htmlCode = "";
+  for (const item of favorites) {
+    if (item.image == null) {
+      htmlCode += `<li id="${item.id}" class="card js-card-fav">
+        <div class="favorite">
+          <img class="image" src="https://via.placeholder.com/100x150/ffffff/666666/?text=TV" alt="series poster placeholder">${item.name}
+        </div>
+      </li>`;
+      debugger;
+    } else {
+      htmlCode += `<li id="${item.id}" class="card js-card-fav">
+        <div class="favorite">
+          <img class="image" src="${item.image.medium}" alt="series poster">${item.name}
+        </div>
+      </li>`;
+    }
+  }
+  return htmlCode;
+}
+
 function cardListener() {
   const allSeries = document.querySelectorAll(".js-card");
   for (const cards of allSeries) {
@@ -20,16 +41,13 @@ function faveList(ev) {
     faveCard.classList.add(".clicked");
   } else {
     let selectedSeriesFav = favorites.indexOf(findFave);
-    favorites.splice(selectedSeriesFav);
+    favorites.splice(selectedSeriesFav, 1);
     faveCard.classList.add(".card");
     faveCard.classList.remove(".clicked");
   }
 
-  const cardClicked = document.querySelector(".card");
-  cardClicked.addEventListener("click", faveList);
-
   localStorage.setItem("series", JSON.stringify(favorites));
-  paintSeriesFav(favorites);
+  generateFaveList(favorites);
   addEventListenerClose();
 }
 function generateFaveList(favorites) {
